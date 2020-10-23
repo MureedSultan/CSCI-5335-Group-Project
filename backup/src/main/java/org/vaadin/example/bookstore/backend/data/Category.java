@@ -1,8 +1,6 @@
 package org.vaadin.example.bookstore.backend.data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
@@ -14,23 +12,6 @@ public class Category implements Serializable {
     private int id = -1;
     @Size(min = 2, message = "Category name must be at least two characters")
     private String name;
-    private List<Category> subCategories;
-
-    public Category(){
-        subCategories = new ArrayList<Category>();
-    }
-
-    public void addSubCategory(Category c){
-        subCategories.add(c);
-    }
-
-    public void removeSubCategory(Category c) {
-        subCategories.remove(c);
-    }
-
-    public List<Category> getSubCategories(){
-        return subCategories;
-    }
 
     public int getId() {
         return id;

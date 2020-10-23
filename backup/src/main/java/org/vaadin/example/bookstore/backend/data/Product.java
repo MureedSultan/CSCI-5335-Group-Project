@@ -1,5 +1,8 @@
 package org.vaadin.example.bookstore.backend.data;
 
+import org.vaadin.example.bookstore.backend.data.Status.Available;
+import org.vaadin.example.bookstore.backend.data.Status.DefaultStatus;
+import org.vaadin.example.bookstore.backend.data.Status.Status;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -24,6 +27,8 @@ public class Product implements Serializable {
     private int stockCount = 0;
     @NotNull
     private Availability availability = Availability.COMING;
+
+    private Status status = new DefaultStatus();
 
     public int getId() {
         return id;
@@ -71,6 +76,14 @@ public class Product implements Serializable {
 
     public void setAvailability(Availability availability) {
         this.availability = availability;
+    }
+
+    public Status getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public boolean isNewProduct() {

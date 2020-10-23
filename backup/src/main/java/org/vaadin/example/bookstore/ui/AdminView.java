@@ -32,8 +32,6 @@ public class AdminView extends VerticalLayout {
     private final ListDataProvider<Category> dataProvider;
     private final Button newCategoryButton;
 
-
-
     public AdminView() {
         categoriesListing = new IronList<>();
 

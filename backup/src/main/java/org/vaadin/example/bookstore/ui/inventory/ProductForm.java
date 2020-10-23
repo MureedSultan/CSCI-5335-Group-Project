@@ -29,6 +29,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import org.vaadin.example.bookstore.backend.data.Availability;
 import org.vaadin.example.bookstore.backend.data.Category;
 import org.vaadin.example.bookstore.backend.data.Product;
+import org.vaadin.example.bookstore.backend.data.Status.*;
 
 /**
  * A form for editing a single product.
@@ -42,7 +43,7 @@ public class ProductForm extends Div {
     private final TextField stockCount;
 
     private final Select<Availability> availability;
-//    private final Select<Status> status;
+    private final Select<Status> status;
 
     private final CheckboxGroup<Category> category;
     private Button save;
@@ -132,16 +133,17 @@ public class ProductForm extends Div {
         content.add(availability);
 
         // Decorator Pattern - Status
-
-
-
-//        status = new Select<>();
-//        status.setLabel("Item Status 123");
-//        status.setWidth("100%");
-//        List<Status> statusValues = ItemStatus.getValues();
-//        status.setItems(statusValues);
-//        status.setValue(statusValues.get(0));
-//        content.add(status);
+        status = new Select<>();
+        status.setLabel("Item Status");
+        status.setWidth("100%");
+        Status currStatus = new DefaultStatus();
+        List<Status> statusOptions = new ArrayList<Status>();
+        statusOptions.add(new Discontinued(currStatus));
+        statusOptions.add(new Available(currStatus));
+        statusOptions.add(new Coming(currStatus));
+        status.setItems(statusOptions);
+        status.setValue(statusOptions.get(0));
+        content.add(status);
 
 
         category = new CheckboxGroup<>();

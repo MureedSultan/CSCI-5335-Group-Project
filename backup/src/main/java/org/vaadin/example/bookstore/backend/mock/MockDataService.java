@@ -1,6 +1,5 @@
 package org.vaadin.example.bookstore.backend.mock;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,10 +21,8 @@ public class MockDataService extends DataService {
     private int nextCategoryId = 0;
 
     private MockDataService() {
-//        categories = MockDataGenerator.createCategories();
-//        products = MockDataGenerator.createProducts(categories);
-        categories = Generator.getInstance().createMultipleCategories(new ArrayList<Category>());
-        products = Generator.getInstance().createMultipleProducts(categories);
+        categories = MockDataGenerator.createCategories();
+        products = MockDataGenerator.createProducts(categories);
         nextProductId = products.size() + 1;
         nextCategoryId = categories.size() + 1;
     }
