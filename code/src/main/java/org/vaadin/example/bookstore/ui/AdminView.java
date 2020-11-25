@@ -13,6 +13,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
@@ -28,6 +29,7 @@ public class AdminView extends VerticalLayout {
 
     public static final String VIEW_NAME = "Admin";
 
+//    private final TreeGrid<Category> categoriesTree;
     private final IronList<Category> categoriesListing;
     private final ListDataProvider<Category> dataProvider;
     private final Button newCategoryButton;
@@ -36,6 +38,13 @@ public class AdminView extends VerticalLayout {
 
     public AdminView() {
         categoriesListing = new IronList<>();
+        //categoriesTree = new TreeGrid<>();
+
+        /*dataProvider = new ListDataProvider<Category>(
+            new ArrayList<>(DataService.get().getAllCategories()));
+        categoriesTree.setDataProvider(dataProvider);
+        categoriesTree.setRenderer(
+                );*/
 
         dataProvider = new ListDataProvider<Category>(
                 new ArrayList<>(DataService.get().getAllCategories()));
@@ -54,6 +63,9 @@ public class AdminView extends VerticalLayout {
                 categoriesListing);
     }
 
+
+    //private Button createSubCatButton(Category parent, Category child)
+
     private Component createCategoryEditor(Category category) {
         final TextField nameField = new TextField();
         if (category.getId() < 0) {
@@ -63,7 +75,7 @@ public class AdminView extends VerticalLayout {
         final Button deleteButton = new Button(
                 VaadinIcon.MINUS_CIRCLE_O.create(), event -> {
 
-                    // Ask for confirmation before deleting stuff
+                    //Ask for confirmation before deleting stuff
                     final ConfirmDialog dialog = new ConfirmDialog(
                             "Please confirm",
                             "Are you sure you want to delete the category? Books in this category will not be deleted.",
@@ -80,6 +92,11 @@ public class AdminView extends VerticalLayout {
                 });
         deleteButton.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
+        /*final Button addSubCatButton = new Button(
+                VaadinIcon.PLUS.create(), event -> {
+                            
+                });*/
+
         final BeanValidationBinder<Category> binder = new BeanValidationBinder<>(
                 Category.class);
         binder.forField(nameField).bind("name");
@@ -92,10 +109,14 @@ public class AdminView extends VerticalLayout {
                 Notification.show("Category Saved.");
             }
         });
+
+        //bean for subcat?
+
         deleteButton.setEnabled(category.getId() > 0);
 
         final HorizontalLayout layout = new HorizontalLayout(nameField,
                 deleteButton);
+
         layout.setFlexGrow(1);
         return layout;
     }

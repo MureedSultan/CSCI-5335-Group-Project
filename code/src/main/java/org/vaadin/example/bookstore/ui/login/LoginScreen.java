@@ -51,7 +51,7 @@ public class LoginScreen extends FlexLayout {
         // information text about logging in
         Component loginInformation = buildLoginInformation();
 
-        add(loginInformation);
+//        add(loginInformation);
         add(centeringLayout);
     }
 

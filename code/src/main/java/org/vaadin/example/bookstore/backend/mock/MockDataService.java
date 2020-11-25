@@ -3,6 +3,7 @@ package org.vaadin.example.bookstore.backend.mock;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.vaadin.example.bookstore.backend.DataService;
 import org.vaadin.example.bookstore.backend.data.Category;
@@ -25,6 +26,13 @@ public class MockDataService extends DataService {
 //        categories = MockDataGenerator.createCategories();
 //        products = MockDataGenerator.createProducts(categories);
         categories = Generator.getInstance().createMultipleCategories(new ArrayList<Category>());
+        for(Category c : categories){
+            Set<Category> subCategoires = Generator.getInstance().getRandomCategory(categories, 1,
+                    3);
+            for(Category s : subCategoires){
+                c.addSubCategory(s);
+            }
+        }
         products = Generator.getInstance().createMultipleProducts(categories);
         nextProductId = products.size() + 1;
         nextCategoryId = categories.size() + 1;
@@ -91,6 +99,16 @@ public class MockDataService extends DataService {
                 product.getCategory().removeIf(category -> category.getId() == categoryId);
             });
         }
+    }
+
+    @Override
+    public void updateSubCategory(Category parent, Category child) {
+
+    }
+
+    @Override
+    public void deleteSubCategory(Category parent, Category child) {
+
     }
 
     @Override

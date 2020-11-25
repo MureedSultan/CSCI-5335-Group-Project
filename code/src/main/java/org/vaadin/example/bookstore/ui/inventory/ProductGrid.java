@@ -32,7 +32,7 @@ public class ProductGrid extends Grid<Product> {
         decimalFormat.setMaximumFractionDigits(2);
         decimalFormat.setMinimumFractionDigits(2);
 
-        addColumn(product -> decimalFormat.format(product.getPrice()) + " €")
+        addColumn(product ->  "$" + decimalFormat.format(product.getPrice()))
                 .setHeader("Price").setTextAlign(ColumnTextAlign.END)
                 .setComparator(Comparator.comparing(Product::getPrice))
                 .setFlexGrow(3).setKey("price");

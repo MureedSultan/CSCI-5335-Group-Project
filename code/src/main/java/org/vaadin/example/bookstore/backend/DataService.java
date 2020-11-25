@@ -26,6 +26,10 @@ public abstract class DataService implements Serializable {
 
     public abstract void deleteCategory(int categoryId);
 
+    public abstract void updateSubCategory(Category parent, Category child);
+
+    public abstract void deleteSubCategory(Category parent, Category child);
+
     public static DataService get() {
         return MockDataService.getInstance();
     }

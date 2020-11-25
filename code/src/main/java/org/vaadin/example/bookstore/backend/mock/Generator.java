@@ -50,8 +50,4 @@ public class Generator {
         return category.getRandom(categories, min, max);
     }
 
-
-
-
-
 }

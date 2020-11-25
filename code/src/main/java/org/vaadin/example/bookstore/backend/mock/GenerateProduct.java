@@ -14,7 +14,6 @@ import java.util.Set;
 public class GenerateProduct implements Generate<Product, Category>{
 
     private static int nextProductId = 1;
-//    private static final Random random = new Random(1);
     private static final String[] word1 = new String[] { "The art of", "Mastering",
             "The secrets of", "Avoiding", "For fun and profit: ",
             "How to fail at", "10 important facts about",

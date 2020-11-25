@@ -12,6 +12,7 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.html.Div;
@@ -21,6 +22,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.textfield.TextFieldVariant;
+import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.StringToBigDecimalConverter;
@@ -45,6 +47,7 @@ public class ProductForm extends Div {
 //    private final Select<Status> status;
 
     private final CheckboxGroup<Category> category;
+    private final TreeGrid<Category> categoryTreeGrid;
     private Button save;
     private Button discard;
     private Button cancel;
@@ -144,17 +147,39 @@ public class ProductForm extends Div {
 //        content.add(status);
 
 
+
         category = new CheckboxGroup<>();
         category.setLabel("Categories");
         category.setId("category");
         category.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
         content.add(category);
 
+        categoryTreeGrid = new TreeGrid<Category>();
+//        categoryTreeGrid.addHierarchyColumn(Category::getName).setHeader("Categories");
+        categoryTreeGrid.addComponentHierarchyColumn(cat -> {
+//            Span departmentName = new Span(cat.getName());
+
+            Checkbox checkbox = new Checkbox();
+            checkbox.setLabel(cat.getName());
+            checkbox.setValue(true);
+            return checkbox;
+//            managerName.getStyle().set("color", "var(--lumo-secondary-text-color)");
+//            managerName.getStyle().set("font-size", "var(--lumo-font-size-s)");
+//            VerticalLayout departmentLine = new VerticalLayout(departmentName, managerName);
+//            departmentLine.setPadding(false);
+//            departmentLine.setSpacing(false);
+//            return departmentLine;
+        });
+        content.add(categoryTreeGrid);
+
+
         binder = new BeanValidationBinder<>(Product.class);
         binder.forField(price).withConverter(new PriceConverter())
                 .bind("price");
         binder.forField(stockCount).withConverter(new StockCountConverter())
                 .bind("stockCount");
+//        binder.forField(categoryTreeGrid).bind(Product::getCategory, Product::setCategory);
+
         binder.bindInstanceFields(this);
 
         // enable/disable save button while editing
@@ -203,6 +228,16 @@ public class ProductForm extends Div {
     }
 
     public void setCategories(Collection<Category> categories) {
+
+        categoryTreeGrid.setItems(categories);
+
+        categories.forEach(c -> {
+            Category temp = new Category();
+            temp.setName("Test Category");
+            categoryTreeGrid.getTreeData().addItem(c, temp);
+        });
+
+//        categoryTreeGrid.setItems(categories, Category::getSubCategories);
         category.setItems(categories);
     }
 
