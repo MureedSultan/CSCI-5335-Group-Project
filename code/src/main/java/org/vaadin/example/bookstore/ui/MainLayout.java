@@ -26,7 +26,7 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import org.vaadin.example.bookstore.authentication.AccessControl;
 import org.vaadin.example.bookstore.authentication.AccessControlFactory;
-import org.vaadin.example.bookstore.ui.about.AboutView;
+//import org.vaadin.example.bookstore.ui.about.AboutView;
 import org.vaadin.example.bookstore.ui.inventory.InventoryView;
 
 /**
@@ -70,8 +70,8 @@ public class MainLayout extends AppLayout implements RouterLayout {
         addToDrawer(createMenuLink(InventoryView.class, InventoryView.VIEW_NAME,
                 VaadinIcon.EDIT.create()));
 
-        addToDrawer(createMenuLink(AboutView.class, AboutView.VIEW_NAME,
-                VaadinIcon.INFO_CIRCLE.create()));
+//        addToDrawer(createMenuLink(AboutView.class, AboutView.VIEW_NAME,
+//                VaadinIcon.INFO_CIRCLE.create()));
 
         // Create logout button but don't add it yet; admin view might be added
         // in between (see #onAttach())
